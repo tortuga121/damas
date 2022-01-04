@@ -1,4 +1,4 @@
-from .constantes import VERMELHO, BRANCO, CASA_SIZE, CINZA, COROA
+from .constantes import CASA_SIZE, CINZA, COROA
 import pygame
 
 

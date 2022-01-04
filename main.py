@@ -1,6 +1,6 @@
 # Assets: https://techwithtim.net/wp-content/uploads/2020/09/assets.zip
 import pygame
-from damas.constantes import LARGURA, ALTURA, CASA_SIZE, VERMELHO
+from damas.constantes import LARGURA, ALTURA, CASA_SIZE
 from damas.jogo import Jogo
 
 FPS = 60
@@ -8,22 +8,22 @@ FPS = 60
 WIN = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption('Checkers')
 
-def get_row_col_from_mouse(pos):
+def get_lin_col_rato(pos):
     x, y = pos
-    row = y // CASA_SIZE
+    lin = y // CASA_SIZE
     col = x // CASA_SIZE
-    return row, col
+    return lin, col
 
 def main():
     run = True
     clock = pygame.time.Clock()
-    game = Jogo(WIN)
+    jogo = Jogo(WIN)
 
     while run:
         clock.tick(FPS)
 
-        if game.vencedor() != None:
-            print(game.vencedor())
+        if jogo.vencedor() is not None:
+            print(jogo.vencedor())
             run = False
 
         for event in pygame.event.get():
@@ -32,10 +32,10 @@ def main():
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                row, col = get_row_col_from_mouse(pos)
-                game.seleciona(row, col)
+                lin, col = get_lin_col_rato(pos)
+                jogo.seleciona(lin, col)
 
-        game.atualiza()
+        jogo.atualiza()
     
     pygame.quit()
 

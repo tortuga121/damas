@@ -63,9 +63,9 @@ class Tabuleiro:
 
     def vencedor(self):
         if self.pecas_vermelhas <= 0:
-            return BRANCO
+            return "GANHARAM AS PECAS BRANCAS"
         elif self.pecas_brancas <= 0:
-            return VERMELHO
+            return "GANHARAM AS PECAS VERMELHAS"
 
         return None
 
@@ -76,15 +76,15 @@ class Tabuleiro:
         lin = piece.fila
 
         if piece.cor == VERMELHO or piece.rei:
-            movimentos.update(self.diagonal_esq(lin - 1, max(lin - 3, -1), -1, piece.cor, esq, []))
-            movimentos.update(self.diagonal_dir(lin - 1, max(lin - 3, -1), -1, piece.cor, dir, []))
+            movimentos.update(self.diagonal_esq(lin - 1, max(lin - 3, -1), -1, piece.cor, esq))
+            movimentos.update(self.diagonal_dir(lin - 1, max(lin - 3, -1), -1, piece.cor, dir))
         if piece.cor == BRANCO or piece.rei:
-            movimentos.update(self.diagonal_esq(lin + 1, min(lin + 3, FILAS), 1, piece.cor, esq, []))
-            movimentos.update(self.diagonal_dir(lin + 1, min(lin + 3, FILAS), 1, piece.cor, dir, []))
+            movimentos.update(self.diagonal_esq(lin + 1, min(lin + 3, FILAS), 1, piece.cor, esq))
+            movimentos.update(self.diagonal_dir(lin + 1, min(lin + 3, FILAS), 1, piece.cor, dir))
 
         return movimentos
 
-    def diagonal_esq(self, start, stop, step, color, left, saltados):
+    def diagonal_esq(self, start, stop, step, color, left, saltados=[]):
         movimentos = {}
         ultimo = []
         for r in range(start, stop, step):
@@ -105,8 +105,8 @@ class Tabuleiro:
                         lin = max(r - 3, 0)
                     else:
                         lin = min(r + 3, FILAS)
-                    movimentos.update(self.diagonal_esq(r + step, lin, step, color, left - 1, ultimo))
-                    movimentos.update(self.diagonal_dir(r + step, lin, step, color, left + 1, ultimo))
+                    movimentos.update(self.diagonal_esq(r + step, lin, step, color, left - 1, saltados=ultimo))
+                    movimentos.update(self.diagonal_dir(r + step, lin, step, color, left + 1, saltados=ultimo))
                 break
             elif atual.cor == color:
                 break
@@ -117,7 +117,7 @@ class Tabuleiro:
 
         return movimentos
 
-    def diagonal_dir(self, start, stop, step, cor, right, saltados):
+    def diagonal_dir(self, start, stop, step, cor, right, saltados=[]):
         movimentos = {}
         ultimo = []
         for r in range(start, stop, step):
@@ -138,8 +138,8 @@ class Tabuleiro:
                         lin = max(r - 3, 0)
                     else:
                         lin = min(r + 3, FILAS)
-                    movimentos.update(self.diagonal_esq(r + step, lin, step, cor, right - 1, ultimo))
-                    movimentos.update(self.diagonal_dir(r + step, lin, step, cor, right + 1, ultimo))
+                    movimentos.update(self.diagonal_esq(r + step, lin, step, cor, right - 1, saltados=ultimo))
+                    movimentos.update(self.diagonal_dir(r + step, lin, step, cor, right + 1, saltados=ultimo))
                 break
             elif atual.cor == cor:
                 break
