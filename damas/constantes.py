@@ -12,4 +12,4 @@ AZUL = (0, 0, 255)
 CINZA = (128, 128, 128)
 CASTANHO = (102,51,0)
 
-COROA = pygame.transform.scale(pygame.image.load('assets/crown.png'), (44, 25))
+COROA = pygame.transform.scale(pygame.image.load('crown.png'), (44, 25))
