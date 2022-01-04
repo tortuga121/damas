@@ -16,11 +16,11 @@ class Tabuleiro:
             for col in range(lin % 2, COLUNAS, 2):
                 pygame.draw.rect(win, CASTANHO, (lin * CASA_SIZE, col * CASA_SIZE, CASA_SIZE, CASA_SIZE))
 
-    def move(self, peca, row, col):
-        self.tab[peca.fila][peca.col], self.tab[row][col] = self.tab[row][col], self.tab[peca.fila][peca.col]
-        peca.move(row, col)
+    def move(self, peca, lin, col):
+        self.tab[peca.lin][peca.col], self.tab[lin][col] = self.tab[lin][col], self.tab[peca.lin][peca.col]
+        peca.move(lin, col)
 
-        if row == FILAS - 1 or row == 0:
+        if lin == FILAS - 1 or lin == 0:
             peca.faz_rei()
             if peca.cor == BRANCO:
                 self.reis_brancos += 1
@@ -54,7 +54,7 @@ class Tabuleiro:
 
     def remove(self, pecas):
         for peca in pecas:
-            self.tab[peca.fila][peca.col] = 0
+            self.tab[peca.lin][peca.col] = 0
             if peca != 0:
                 if peca.cor == VERMELHO:
                     self.pecas_vermelhas -= 1
@@ -73,7 +73,7 @@ class Tabuleiro:
         movimentos = {}
         esq = piece.col - 1
         dir = piece.col + 1
-        lin = piece.fila
+        lin = piece.lin
 
         if piece.cor == VERMELHO or piece.rei:
             movimentos.update(self.diagonal_esq(lin - 1, max(lin - 3, -1), -1, piece.cor, esq))

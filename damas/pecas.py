@@ -6,8 +6,8 @@ class Peca:
     PADDING = 15
     OUTLINE = 2
 
-    def __init__(self, row, col, cor):
-        self.fila = row
+    def __init__(self, lin, col, cor):
+        self.lin = lin
         self.col = col
         self.cor = cor
         self.rei = False
@@ -17,7 +17,7 @@ class Peca:
 
     def calc_pos(self):
         self.x = CASA_SIZE * self.col + CASA_SIZE // 2
-        self.y = CASA_SIZE * self.fila + CASA_SIZE // 2
+        self.y = CASA_SIZE * self.lin + CASA_SIZE // 2
 
     def faz_rei(self):
         self.rei = True
@@ -30,6 +30,6 @@ class Peca:
             win.blit(COROA, (self.x - COROA.get_width() // 2, self.y - COROA.get_height() // 2))
 
     def move(self, row, col):
-        self.fila = row
+        self.lin = row
         self.col = col
         self.calc_pos()
