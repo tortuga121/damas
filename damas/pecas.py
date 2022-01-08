@@ -21,17 +21,17 @@ class Peca:
     def calc_pos(self):
         self.x = CASA_SIZE * self.col + CASA_SIZE // 2
         self.y = CASA_SIZE * self.lin + CASA_SIZE // 2
-
+    # transforma a peca num rei
     def faz_rei(self):
         self.rei = True
-
+    # desenha uma peca
     def desenha(self, win):
         radius = CASA_SIZE // 2 - self.PADDING
         pygame.draw.circle(win, CINZA, (self.x, self.y), radius + self.OUTLINE)
         pygame.draw.circle(win, self.cor, (self.x, self.y), radius)
         if self.rei:
             win.blit(COROA, (self.x - COROA.get_width() // 2, self.y - COROA.get_height() // 2))
-
+    # move a peca
     def move(self, row, col):
         self.lin = row
         self.col = col

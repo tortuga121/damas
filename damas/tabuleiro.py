@@ -17,13 +17,13 @@ class Tabuleiro:
         self.reis_vermelhos = 0
         self.reis_brancos = 0
         self.cria_tabuleiro()
-
+    # desenha os quadrados pretos e castanhos do tabuleiro
     def desenha_quadrados(self, win):
         win.fill(PRETO)
         for lin in range(FILAS):
             for col in range(lin % 2, COLUNAS, 2):
                 pygame.draw.rect(win, CASTANHO, (lin * CASA_SIZE, col * CASA_SIZE, CASA_SIZE, CASA_SIZE))
-
+    # move uma peca dentro do tabuleiro
     def move(self, peca, lin, col):
         self.tab[peca.lin][peca.col], self.tab[lin][col] = self.tab[lin][col], self.tab[peca.lin][peca.col]
         peca.move(lin, col)
@@ -34,10 +34,10 @@ class Tabuleiro:
                 self.reis_brancos += 1
             else:
                 self.reis_vermelhos += 1
-
+    # devolve a peca que esta na linha e coluna dados
     def get_peca(self, lin, col):
         return self.tab[lin][col]
-
+    # cria um tabuleiro inicial com 0 e Pecas
     def cria_tabuleiro(self):
         for lin in range(FILAS):
             self.tab.append([])
@@ -52,7 +52,7 @@ class Tabuleiro:
                         self.tab[lin].append(0)
                 else:
                     self.tab[lin].append(0)
-
+    # desenha o tabueliro com o quadrados e a pecas
     def desenha(self, win):
         self.desenha_quadrados(win)
         for lin in range(FILAS):
@@ -60,7 +60,7 @@ class Tabuleiro:
                 piece = self.tab[lin][col]
                 if piece != 0:
                     piece.desenha(win)
-
+    # remove uma peca do tabueliro
     def remove(self, pecas):
         for peca in pecas:
             self.tab[peca.lin][peca.col] = 0
@@ -69,7 +69,7 @@ class Tabuleiro:
                     self.pecas_vermelhas -= 1
                 else:
                     self.pecas_brancas -= 1
-
+    # determina o vencedor
     def vencedor(self):
         if self.pecas_vermelhas <= 0:
             return "GANHARAM AS PECAS BRANCAS"
@@ -77,7 +77,7 @@ class Tabuleiro:
             return "GANHARAM AS PECAS VERMELHAS"
 
         return None
-
+    # calcula as jogadas validas de uma peca
     def get_jogadas_validas(self, piece):
         movimentos = {}
         esq = piece.col - 1
