@@ -7,14 +7,17 @@ class Peca:
     OUTLINE = 2
 
     def __init__(self, lin, col, cor):
+        ## coordenadads no jgoo
         self.lin = lin
         self.col = col
         self.cor = cor
         self.rei = False
+        ## coordenadas na jenal
         self.x = 0
         self.y = 0
         self.calc_pos()
 
+    # passa de coordenadas do jogo para coordenadas da janela
     def calc_pos(self):
         self.x = CASA_SIZE * self.col + CASA_SIZE // 2
         self.y = CASA_SIZE * self.lin + CASA_SIZE // 2

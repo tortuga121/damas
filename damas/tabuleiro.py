@@ -4,10 +4,18 @@ from .pecas import Peca
 
 
 class Tabuleiro:
+       # matriz dos quadrados e oq ue tem neles - tab
+       # numero de pecas vermelhas
+       # numero de pecas brancas
+       # numero reis vermelhos
+       # numeros reis brancos
+
     def __init__(self):
         self.tab = []
-        self.pecas_vermelhas = self.pecas_brancas = 12
-        self.reis_vermelhos = self.reis_brancos = 0
+        self.pecas_vermelhas = 12
+        self.pecas_brancas = 12
+        self.reis_vermelhos = 0
+        self.reis_brancos = 0
         self.cria_tabuleiro()
 
     def desenha_quadrados(self, win):
@@ -27,13 +35,14 @@ class Tabuleiro:
             else:
                 self.reis_vermelhos += 1
 
-    def get_peca(self, row, col):
-        return self.tab[row][col]
+    def get_peca(self, lin, col):
+        return self.tab[lin][col]
 
     def cria_tabuleiro(self):
         for lin in range(FILAS):
             self.tab.append([])
             for col in range(COLUNAS):
+                # se um for par e o outro impar vamos colocar peca
                 if col % 2 == ((lin + 1) % 2):
                     if lin < 3:
                         self.tab[lin].append(Peca(lin, col, BRANCO))

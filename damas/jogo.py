@@ -4,6 +4,11 @@ from damas.tabuleiro import Tabuleiro
 
 
 class Jogo:
+    # janela - win
+    # quadrado selecionado - selecionado
+    # quem é a jogar - vez
+    # lista de coordeandas das jogadas validas = jogadas_validas
+    # tabuleiro
     def __init__(self, win):
         self._init()
         self.win = win
@@ -36,9 +41,7 @@ class Jogo:
         if peca != 0 and peca.cor == self.vez:
             self.selecionado = peca
             self.jogadas_validas = self.tabuleiro.get_jogadas_validas(peca)
-            return True
 
-        return False
 
     def move(self, lin, col):
         peca = self.tabuleiro.get_peca(lin, col)
