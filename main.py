@@ -8,11 +8,13 @@ WIN = pygame.display.set_mode((LARGURA, ALTURA))
 # definir o titulo da janela
 pygame.display.set_caption('Damas')
 
-#trandofmra coordenadas da janela nos quadrados do jogo
 def get_lin_col_rato(pos):
-    #separa a coordenada em abcissa e ordenada
+    """
+    Converte a posição do rato para uma posicao do tabuleiro
+    @param pos: Par Coordenada da posicao do rato
+    @return: Par linha e coluna posição no Tabuleiro
+    """
     x, y = pos
-    ## calcula o quadrado onde está usando a divisão inteira (//)
     lin = y // CASA_SIZE
     col = x // CASA_SIZE
     return lin, col

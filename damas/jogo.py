@@ -10,6 +10,10 @@ class Jogo:
     # lista de coordeandas das jogadas validas = jogadas_validas
     # tabuleiro
     def __init__(self, win):
+        """
+        Comstrutor da classe jogo
+        @param win: Janela do joogo
+        """
         self._init()
         self.win = win
     # atualiza a jnaela e desenha as coisas do tabuleiro
@@ -19,19 +23,33 @@ class Jogo:
         pygame.display.update()
 
     def _init(self):
+        """
+        Metodo auxiliar do construtor
+        """
         self.selecionado = None
         self.tabuleiro = Tabuleiro()
         self.vez = VERMELHO
         self.jogadas_validas = {}
 
-    # devolve None se não ha vencedor ou uma frase a dizer quem é o vencedor
     def vencedor(self):
+        """
+        Calcula qual é o vencedor
+        @return: String que diz quem é o vencedor
+        """
         return self.tabuleiro.vencedor()
-    # reeinicia o tabuleiro
+
     def reinicia(self):
+        """
+        Reeinicia o tabuleiro para o inicio do jogo
+        """
         self._init()
-    # seleciona um casa do tabuleiro
+
     def seleciona(self, lin, col):
+        """
+        Seleciona um quadrado do tabuleiro
+        @param lin: Linha do quadrado selecionado
+        @param col: Coluna do quadrado selecionado
+        """
         if self.selecionado:
             resultado = self.move(lin, col)
             if not resultado:
@@ -43,8 +61,15 @@ class Jogo:
             self.selecionado = peca
             self.jogadas_validas = self.tabuleiro.get_jogadas_validas(peca)
 
-    # move uma peça do tabuleiro se a jogada for valida devolve true se for invalida devolve false
+
     def move(self, lin, col):
+        """
+        Move uma peca do jogo
+        @param lin: Linha de onde se encontra a peca
+        @param col: Coluna de onde se encontra a peca
+        @return: Boolean que é verdadeiro caso alguma peca se tenha movido
+         falso caso o mesmo nao tenha acontecido
+        """
         peca = self.tabuleiro.get_peca(lin, col)
         if self.selecionado and peca == 0 and (lin, col) in self.jogadas_validas:
             self.tabuleiro.move(self.selecionado, lin, col)
@@ -56,14 +81,21 @@ class Jogo:
             return False
 
         return True
-    # desenha na janela as jogadas validas com pontos azuis
+
     def desenha_jogadas_validas(self, movimentos):
+        """
+        Desenha na janela as jogadas validas com pontos azuis
+        @param movimentos: Um dicionario com os movimentos possiveis
+        """
         for mov in movimentos:
             lin, col = mov
             pygame.draw.circle(self.win, AZUL,
                                (col * CASA_SIZE + CASA_SIZE // 2, lin * CASA_SIZE + CASA_SIZE // 2), 15)
-    # troca a vez de quem é o proximo a jogar
+
     def passa_vez(self):
+        """
+        Alterna a vez do jogador
+        """
         self.jogadas_validas = {}
         if self.vez == VERMELHO:
             self.vez = BRANCO
