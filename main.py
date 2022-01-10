@@ -3,17 +3,10 @@ from damas.constantes import LARGURA, ALTURA, CASA_SIZE
 from damas.jogo import Jogo
 
 FPS = 60
-# definir a janela
 WIN = pygame.display.set_mode((LARGURA, ALTURA))
-# definir o titulo da janela
 pygame.display.set_caption('Damas')
 
 def get_lin_col_rato(pos):
-    """
-    Converte a posição do rato para uma posicao do tabuleiro
-    @param pos: Par Coordenada da posicao do rato
-    @return: Par linha e coluna posição no Tabuleiro
-    """
     x, y = pos
     lin = y // CASA_SIZE
     col = x // CASA_SIZE

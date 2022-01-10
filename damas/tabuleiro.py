@@ -23,6 +23,7 @@ class Tabuleiro:
         """
         win.fill(PRETO)
         for lin in range(FILAS):
+            # se for par comeca na coluna 0 se for impar começa na coluna 1
             for col in range(lin % 2, COLUNAS, 2):
                 pygame.draw.rect(win, CASTANHO, (lin * CASA_SIZE, col * CASA_SIZE, CASA_SIZE, CASA_SIZE))
 
@@ -33,6 +34,7 @@ class Tabuleiro:
         @param lin: Linha para onde a peca vai
         @param col: Coluna para onde a peca vai
         """
+        # troca as pecas na matriz
         self.tab[peca.lin][peca.col], self.tab[lin][col] = self.tab[lin][col], self.tab[peca.lin][peca.col]
         peca.move(lin, col)
 
@@ -148,8 +150,10 @@ class Tabuleiro:
 
             atual = self.tab[r][left]
             if atual == 0:
+                # caso em que apos saltar aparece logo um quadrado vazio
                 if saltados and not ultimo:
                     break
+                # caso em que apos saltar da para saltar outra vez
                 elif saltados:
                     movimentos[(r, left)] = ultimo + saltados
                 else:
@@ -157,7 +161,7 @@ class Tabuleiro:
 
                 if ultimo:
                     if step == -1:
-                        lin = max(r - 3, 0)
+                        lin = max(r - 3, -1)
                     else:
                         lin = min(r + 3, FILAS)
                     movimentos.update(self.diagonal_esq(r + step, lin, step, color, left - 1, saltados=ultimo))
@@ -200,7 +204,7 @@ class Tabuleiro:
 
                 if ultimo:
                     if step == -1:
-                        lin = max(r - 3, 0)
+                        lin = max(r - 3, -1)
                     else:
                         lin = min(r + 3, FILAS)
                     movimentos.update(self.diagonal_esq(r + step, lin, step, cor, right - 1, saltados=ultimo))
